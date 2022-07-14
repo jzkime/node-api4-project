@@ -20,5 +20,12 @@ module.exports = {
             users.push(nUser)
             res(nUser)
         })
+    },
+
+    async findUser(user) {
+        const ye = users.find(us => {
+            return (us.username === user.username && us.password === user.password)
+        })
+        return ye 
     }
 }

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('./api-model')
-const { validateUser } = require('./middleware')
+const { validateUser, authenticateUser} = require('./middleware')
 
 router.get('/users', (req, res) => {
     User.getAll().then(users => {
@@ -14,6 +14,8 @@ router.post('/register', validateUser, (req, res, next) => {
         .catch(next)
 })
 
-
+router.post('/login', validateUser, authenticateUser, (req, res, next) => {
+    res.send('success! welcome!')
+} )
 
 module.exports = router;

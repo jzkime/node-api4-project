@@ -1,3 +1,4 @@
+const User = require('./api-model');
 module.exports = {
 
     validateUser(req, res, next) {
@@ -9,6 +10,18 @@ module.exports = {
             let pass = password.trim()
             req.userInfo = {username: name, password: pass};
             next()
+        } catch(err) {
+            next(err)
+        }
+    },
+
+    async authenticateUser(req, res, next) {
+        try{
+            const { id } = req.params;
+            const found = await User.findUser(req.userInfo);
+            if(!found) next({status: 404, message: "there is no user by those credentials!"})
+            req.userTrue = found;
+            next();
         } catch(err) {
             next(err)
         }
