@@ -10,7 +10,7 @@ router.get('/users', (req, res) => {
 })
 
 router.post('/register', validateUser, (req, res, next) => {
-    User.addUser(req.userInfo).then(user => res.json(user))
+    User.addUser(req.userInfo).then(user => res.json({username: user.username}))
         .catch(next)
 })
 

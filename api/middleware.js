@@ -21,6 +21,7 @@ module.exports = {
             const found = await User.findUser(req.userInfo);
             if(!found) next({status: 404, message: "there is no user by those credentials!"})
             req.userTrue = found;
+            if(found.password !== req.userInfo.password) next({status: 404, message: "incorrect password"})
             next();
         } catch(err) {
             next(err)
